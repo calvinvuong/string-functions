@@ -28,6 +28,21 @@ char * strncpy(char *dest, char *src, int n) {
   return dest_head;
 }
 
+// concatenates src string onto end of dest string
+// returns a pointer to the destination string
+char * strcat(char *dest, char *src) {
+  char *dest_head = dest;
+  while ( *dest != 0 ) // find null terminator of destination
+    dest++;
+  while ( *src != 0 ) { // add src chars until reach null terminator
+    *dest = *src;
+    src++;
+    dest++;
+  }
+  *dest = 0; // add terminator
+  return dest_head;
+}
+
 // returns > 0 if s1 is greater than s2
 // returns < 0 if s1 is less than s2
 // returns 0 if s1 == s2
@@ -52,6 +67,22 @@ char * strchr(char *s, char c) {
   return s;
 }
 
+// returns memory address of first character of substring in string
+char * strstr(char *haystack, char *needle) {
+  char *start = strchr(haystack, needle); // finds first char of needle in haystack
+  if ( start == NULL ) // first char of needle does not appear
+    return NULL;
+  
+  while ( *start == *needle ) {
+    start++;
+    needle++;
+  }
+  if ( *needle == 0 )
+    return start;
+  else
+    return NULL;
+}
+
 
 /* TESTING METHODS */
 void test_strlen() {
@@ -62,15 +93,14 @@ void test_strncpy() {
   char src[100] = "hello";
   char dest[100] = "bill";
   printf( "%s\n", strncpy(dest, src, 4) );
-  //strncpy(dest, src, 4);
-  //printf( "%s\n", dest);
+
 }
 
 void test_strchr() {
   char hello[6] = "hello";
-  printf( "Memory address of h in hello: %d\n", hello);
+  printf( "Memory address of hello: %d\n", hello);
   printf( "Memory address of l in hello: %d\n", strchr(hello, 'l') ); // should be 2 bytes greater than h 
-  printf( "Memory address of l in hello: %d\n", strchr(hello, 'A') ); // should be 0 
+  printf( "Memory address of A in hello: %d\n", strchr(hello, 'A') ); // should be 0 
 }
 
 void test_strcmp() {
@@ -84,12 +114,28 @@ void test_strcmp() {
   printf( "strcmp(\"catastrophe\", \"cat\"): %d\n", strcmp(c,a) );
 }
 
+void test_strstr() {
+  char a[12] = "catastrophe";
+  char b[4] = "cat";
+  printf( "Memory address of catastrophe: %d\n", a );
+  printf( "Memory address of cat in catastrophe: %d\n", strchr(a, b) );
+  
+
+}
+void test_strcat() {
+  char a[50] = "All the ";
+  char b[14] = "single ladies";
+  strcat(a,b);
+  printf( "strcat(\"All the \", \"single ladies\"): %s\n", a );
+}
+
+
 int main() {
   test_strlen();
   test_strncpy();
   test_strcmp();
   test_strchr();
-
+  test_strcat();
   return 0;
 }
 	  
