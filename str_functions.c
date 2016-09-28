@@ -26,7 +26,16 @@ char *strncpy(char *dest, char *src, int n) {
   return dest_head;
 }
   
-
+// returns memory address of char c in string s
+// returns NULL if c not in s
+char *strchr(char *s, char c) {
+  while ( *s != c ) {
+    if ( *s == 0 ) // null terminator
+      return NULL;
+    s++;
+  }
+  return s;
+}
 
 
 /* TESTING METHODS */
@@ -42,9 +51,17 @@ void test_strncpy() {
   //printf( "%s\n", dest);
 }
 
+void test_strchr() {
+  char hello[6] = "hello";
+  printf( "Memory address of h in hello: %d\n", hello);
+  printf( "Memory address of l in hello: %d\n", strchr(hello, 'l') ); // should be 2 bytes greater than h 
+  printf( "Memory address of l in hello: %d\n", strchr(hello, 'A') ); // should be 0 
+}
+
 int main() {
   test_strlen();
   test_strncpy();
+  test_strchr();
   return 0;
 }
 	  
