@@ -69,7 +69,8 @@ char * strchr(char *s, char c) {
 
 // returns memory address of first character of substring in string
 char * strstr(char *haystack, char *needle) {
-  char *start = strchr(haystack, needle); // finds first char of needle in haystack
+  char *start = strchr(haystack, *needle); // finds first char of needle in haystack
+  char *ret_pointer = start;
   if ( start == NULL ) // first char of needle does not appear
     return NULL;
   
@@ -78,7 +79,7 @@ char * strstr(char *haystack, char *needle) {
     needle++;
   }
   if ( *needle == 0 )
-    return start;
+    return ret_pointer;
   else
     return NULL;
 }
@@ -117,10 +118,15 @@ void test_strcmp() {
 void test_strstr() {
   char a[12] = "catastrophe";
   char b[4] = "cat";
+  char c[5] = "tast";
+  char d[2] = "t";
+  char e[10] = "pheromone";
   printf( "Memory address of catastrophe: %d\n", a );
-  printf( "Memory address of cat in catastrophe: %d\n", strchr(a, b) );
+  printf( "Memory address of cat in catastrophe: %d\n", strstr(a, b) );
+  printf( "Memory address of tast in catastrophe: %d\n", strstr(a, c) );
+  printf( "Memory address of t in catastrophe: %d\n", strstr(a, d) );
+  printf( "Memory address of pheromone in catastrophe: %d\n", strstr(a, e) );
   
-
 }
 void test_strcat() {
   char a[50] = "All the ";
@@ -136,6 +142,7 @@ int main() {
   test_strcmp();
   test_strchr();
   test_strcat();
+  test_strstr();
   return 0;
 }
 	  
