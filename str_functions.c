@@ -87,27 +87,37 @@ char * strstr(char *haystack, char *needle) {
 
 /* TESTING METHODS */
 void test_strlen() {
-  printf( "%d\n", strlen("hello") );
+  char s1[41] = "hello";
+  char s2[100] = "";
+  printf( "Testing strlen(): \n" );
+  printf( "s1: %s\t length=%d\n", s1, strlen(s1) );
+  printf( "s2: %s\t\t length=%d\n\n", s2, strlen(s2) );
 }
 
 void test_strncpy() {
   char src[100] = "hello";
   char dest[100] = "bill";
-  printf( "%s\n", strncpy(dest, src, 4) );
-
+  printf("Testing strncpy(): \n" );
+  printf( "Source string:\t\t\t %s\n", src );
+  printf( "Destination string:\t\t %s\n", dest );
+  printf( "Copying 4 chrs of source string onto destination string...\n" );
+  printf( "Destination string after copy:\t %s\n\n" , strncpy(dest, src, 4) );
 }
 
 void test_strchr() {
   char hello[6] = "hello";
-  printf( "Memory address of hello: %d\n", hello);
-  printf( "Memory address of l in hello: %d\n", strchr(hello, 'l') ); // should be 2 bytes greater than h 
-  printf( "Memory address of A in hello: %d\n", strchr(hello, 'A') ); // should be 0 
+  printf( "Testing strchr(): \n" );
+  printf( "String: %s\n", hello );
+  printf( "Memory address of hello:\t %d\n", hello);
+  printf( "Memory address of l in hello:\t %d\n", strchr(hello, 'l') ); // should be 2 bytes greater than h 
+  printf( "Memory address of A in hello:\t %d\n\n", strchr(hello, 'A') ); // should be 0 
 }
 
 void test_strcmp() {
   char a[4] = "cat";
   char b[4] = "cap";
   char c[12] = "catastrophe";
+  printf( "Testing strcmp(): \n" );
   printf( "strcmp(\"cat\", \"cap\"): %d\n", strcmp(a,b) );
   printf( "strcmp(\"cap\", \"cat\"): %d\n", strcmp(b,a) );
 
