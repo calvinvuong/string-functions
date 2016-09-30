@@ -70,18 +70,19 @@ char * strchr(char *s, char c) {
 // returns memory address of first character of substring in string
 char * strstr(char *haystack, char *needle) {
   char *start = strchr(haystack, *needle); // finds first char of needle in haystack
-  char *ret_pointer = start;
-  if ( start == NULL ) // first char of needle does not appear
-    return NULL;
-  
-  while ( *start == *needle ) {
-    start++;
-    needle++;
+  while ( start != NULL ) {
+    char *ret_pointer = start;
+    
+    while ( *start == *needle ) {
+      start++;
+      needle++;
+    }
+    if ( *needle == 0 )
+      return ret_pointer;
+    else
+      start = strchr(start, needle);
   }
-  if ( *needle == 0 )
-    return ret_pointer;
-  else
-    return NULL;
+  return NULL;
 }
 
 
@@ -95,22 +96,20 @@ void test_strlen() {
 }
 
 void test_strncpy() {
-  char src[100] = "hello";
-  char dest[100] = "bill";
+  char dest[100] = "hello";
+  char src[100] = "bill";
   printf("Testing strncpy(): \n" );
   printf( "Source string:\t\t\t %s\n", src );
   printf( "Destination string:\t\t %s\n", dest );
-  printf( "Copying 4 chrs of source string onto destination string...\n" );
-  printf( "Destination string after copy:\t %s\n\n" , strncpy(dest, src, 4) );
+  printf( "Copying 3 chrs of source string onto destination string...\n" );
+  printf( "Destination string after copy:\t %s\n\n" , strncpy(dest, src, 3) );
 }
 
 void test_strchr() {
   char hello[6] = "hello";
   printf( "Testing strchr(): \n" );
-  printf( "String: %s\n", hello );
-  printf( "Memory address of hello:\t %d\n", hello);
-  printf( "Memory address of l in hello:\t %d\n", strchr(hello, 'l') ); // should be 2 bytes greater than h 
-  printf( "Memory address of A in hello:\t %d\n\n", strchr(hello, 'A') ); // should be 0 
+  printf( "Looking for l in hello:\t %c\n", *strchr(hello, 'l') ); // should be 2 bytes greater than h 
+  printf( "Looking for A in hello:\t %s\n\n", strchr(hello, 'A') ); // should be 0 
 }
 
 void test_strcmp() {
@@ -122,22 +121,21 @@ void test_strcmp() {
   printf( "strcmp(\"cap\", \"cat\"): %d\n", strcmp(b,a) );
 
   printf( "strcmp(\"cat\", \"catastrophe\"): %d\n", strcmp(a,c) );
-  printf( "strcmp(\"catastrophe\", \"cat\"): %d\n", strcmp(c,a) );
+  printf( "strcmp(\"catastrophe\", \"cat\"): %d\n\n", strcmp(c,a) );
 }
 
 void test_strstr() {
   char a[12] = "catastrophe";
   char b[4] = "cat";
   char c[5] = "tast";
-  char d[2] = "t";
+  char d[3] = "as";
   char e[10] = "pheromone";
-  printf( "Memory address of catastrophe: %d\n", a );
-  printf( "Memory address of cat in catastrophe: %d\n", strstr(a, b) );
-  printf( "Memory address of tast in catastrophe: %d\n", strstr(a, c) );
-  printf( "Memory address of t in catastrophe: %d\n", strstr(a, d) );
-  printf( "Memory address of pheromone in catastrophe: %d\n", strstr(a, e) );
-  
+  printf( "Looking for cat in catastrophe: %s\n", strstr(a, b) );
+  printf( "Looking for tast in catastrophe: %s\n", strstr(a, c) );
+  printf( "Looking for as in catastrophe: %s\n", strstr(a, d) );
+  printf( "Looking for  pheromone in catastrophe: %s\n\n", strstr(a, e) );
 }
+
 void test_strcat() {
   char a[50] = "All the ";
   char b[14] = "single ladies";
